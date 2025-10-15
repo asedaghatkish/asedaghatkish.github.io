@@ -197,4 +197,156 @@
 <div class="gallery">
   <img src="images/photo1.jpg" class="active" alt="عکس ۱">
   <img src="images/photo2.jpg" alt="عکس ۲">
-  <img src="im
+  <img src="images/photo3.jpg" alt="عکس ۳">
+  <img src="images/photo4.jpg" alt="عکس ۴">
+
+  <button class="nav prev" onclick="prevImage()">‹</button>
+  <button class="nav next" onclick="nextImage()">›</button>
+</div>
+
+<!-- زندگی‌نامه -->
+<div class="bio-section">
+  <h2>زندگی‌نامه مرحوم سرهنگ محمد صداقت کیش</h2>
+  <p>
+    در این بخش می‌توانید متن زندگی‌نامه مرحوم را بنویسید.  
+    برای مثال: مرحوم سرهنگ محمد صداقت کیش در سال ... در شهر ... دیده به جهان گشود.  
+    ایشان دوران خدمت خود را با تعهد و فداکاری سپری کردند و همواره به نیکی از ایشان یاد می‌شود.  
+    روحش شاد و یادش گرامی باد 🌹
+  </p>
+</div>
+
+<!-- صلوات -->
+<div class="salavat-section">
+  <h3>صلوات</h3>
+  <div class="salavat-buttons">
+    <button class="count-btn" onclick="increaseCount('salavat')">ثبت صلوات تکی</button>
+    <button class="count-btn" onclick="openPopup()">ثبت صلوات تعداد</button>
+  </div>
+  <div class="counter" id="salavat">تعداد صلوات: ۰</div>
+</div>
+
+<!-- پاپ‌آپ -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h4>تعداد صلوات</h4>
+    <p>تعداد صلوات را وارد کنید:</p>
+    <input type="number" id="salavatCountInput" placeholder="مثلاً 100">
+    <div class="popup-buttons">
+      <button class="btn-green" onclick="submitSalavatCount()">ثبت صلوات</button>
+      <button class="btn-gray" onclick="closePopup()">بستن منو</button>
+    </div>
+  </div>
+</div>
+
+<!-- مثال برای سوره‌ها -->
+<div class="audio-section">
+  <h3>سوره فاتحه</h3>
+  <audio controls onplay="handlePlay('fatehe', this)">
+    <source src="audio/fatehe.mp3" type="audio/mpeg">
+  </audio>
+  <button class="count-btn" onclick="increaseCount('fatehe')">ثبت سوره فاتحه</button>
+  <div class="counter" id="fatehe">تعداد قرائت: ۰</div>
+</div>
+
+<!-- بقیه سوره‌ها مشابه بالا -->
+
+<footer>روحش شاد و یادش گرامی 🌹</footer>
+
+<script>
+  // گالری
+  let index = 0;
+  const images = document.querySelectorAll(".gallery img");
+  function showImage(i) {
+    images.forEach(img => img.classList.remove("active"));
+    images[i].classList.add("active");
+  }
+  function nextImage() {
+    index = (index + 1) % images.length;
+    showImage(index);
+  }
+  function prevImage() {
+    index = (index - 1 + images.length) % images.length;
+    showImage(index);
+  }
+
+  // شمارنده
+  const counts = JSON.parse(localStorage.getItem("counts")) || {
+    fatehe: 0, ayat: 0, yasin: 0, vaqea: 0, rahman: 0, molk: 0, qadr: 0, ashura: 0, salavat: 0
+  };
+  function updateDisplay() {
+    for (const key in counts) {
+      const el = document.getElementById(key);
+      if (el) el.innerText = key === 'salavat' ? `تعداد صلوات: ${counts[key]}` : `تعداد قرائت: ${counts[key]}`;
+    }
+  }
+
+  function handlePlay(key, audioElement) {
+    audioElement.onended = () => {
+      increaseCount(key);
+    };
+  }
+
+  // صلوات پاپ‌آپ
+  const popup = document.getElementById("popup");
+  function openPopup() { popup.style.display = "flex"; }
+  function closePopup() { popup.style.display = "none"; }
+  function submitSalavatCount() {
+    const val = parseInt(document.getElementById("salavatCountInput").value);
+    if (!isNaN(val) && val > 0) {
+      increaseCount('salavat', val);
+    }
+    closePopup();
+  }
+
+  // ---------- Google Sheet Integration -----------
+  const API_URL = "https://script.google.com/macros/s/AKfycbzIXib38XLD2iUXxPS0CsRYla9cVju0jw8XyYI6dFvvYJ2pwy-xTgwRe1izdtKAzjjF/exec";
+  const TOKEN = "MY_SECRET_TOKEN_123456";
+
+  async function fetchCounts() {
+    try {
+      const res = await fetch(API_URL);
+      const j = await res.json();
+      if (j.ok && j.data) {
+        for (const k in j.data) counts[k] = j.data[k];
+        updateDisplay();
+      }
+    } catch (err) {
+      console.error("fetchCounts error:", err);
+    }
+  }
+
+  async function increaseRemote(key, by = 1) {
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "increment",
+          key: key,
+          value: by,
+          token: TOKEN
+        }),
+      });
+      const j = await res.json();
+      console.log("increaseRemote response:", j);
+    } catch (err) {
+      console.error("increaseRemote error:", err);
+    }
+  }
+
+  // نسخه async تابع افزایش شمارنده
+  async function increaseCount(key, by = 1) {
+    counts[key] = (counts[key] || 0) + by;
+    localStorage.setItem("counts", JSON.stringify(counts));
+    updateDisplay();
+    await increaseRemote(key, by);
+  }
+
+  // وقتی سایت لود شد
+  fetchCounts();
+  updateDisplay();
+
+</script>
+
+</body>
+</html>
