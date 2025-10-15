@@ -369,11 +369,59 @@
     closePopup();
   }
 
+  // ---------- Google Sheet Integration -----------
+const API_URL = "https://script.google.com/macros/s/AKfycbxCxxxxxxxxxxxxx/exec"; // لینک خودت
+const TOKEN = "MY_SECRET_TOKEN_123456";
+
+// گرفتن مقادیر از شیت در زمان باز شدن سایت
+async function fetchCounts() {
+  try {
+    const res = await fetch(API_URL);
+    const j = await res.json();
+    if (j.ok && j.data) {
+      for (const k in j.data) counts[k] = j.data[k];
+      updateDisplay();
+    }
+  } catch (err) {
+    console.error("fetchCounts error:", err);
+  }
+}
+
+// افزایش مقدار در شیت
+async function increaseRemote(key, by = 1) {
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "increment",
+        key: key,
+        value: by,
+        token: TOKEN
+      }),
+    });
+  } catch (err) {
+    console.error("increaseRemote error:", err);
+  }
+}
+
+// اصلاح تابع افزایش شمارنده
+async function increaseCount(key) {
+  counts[key]++;
+  localStorage.setItem("counts", JSON.stringify(counts));
+  updateDisplay();
+  increaseRemote(key); // فرستادن به شیت
+}
+
+// وقتی سایت لود شد، مقادیر گوگل شیت رو بخونه
+fetchCounts();
+
   updateDisplay();
 </script>
 
 </body>
 </html>
+
 
 
 
