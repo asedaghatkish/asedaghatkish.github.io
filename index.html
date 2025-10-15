@@ -215,31 +215,7 @@
   </p>
 </div>
 
-<!-- سوره‌ها زیر هم -->
-
-<!-- صلوات -->
-<div class="salavat-section">
-  <h3>صلوات</h3>
-  <div class="salavat-buttons">
-    <button class="count-btn" onclick="increaseCount('salavat')">ثبت صلوات تکی</button>
-    <button class="count-btn" onclick="openPopup()">ثبت صلوات تعداد</button>
-  </div>
-  <div class="counter" id="salavat">تعداد صلوات: ۰</div>
-</div>
-
-<!-- پاپ‌آپ -->
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <h4>تعداد صلوات</h4>
-    <p>تعداد صلوات را وارد کنید:</p>
-    <input type="number" id="salavatCountInput" placeholder="مثلاً 100">
-    <div class="popup-buttons">
-      <button class="btn-green" onclick="submitSalavatCount()">ثبت صلوات</button>
-      <button class="btn-gray" onclick="closePopup()">بستن منو</button>
-    </div>
-  </div>
-</div>
-  
+<!-- سوره‌ها زیر هم -->  
 <div class="audio-section">
   <h3>سوره فاتحه</h3>
   <audio controls onplay="handlePlay('fatehe', this)">
@@ -312,6 +288,28 @@
   <div class="counter" id="ashura">تعداد قرائت: ۰</div>
 </div>
 
+<!-- صلوات -->
+<div class="salavat-section">
+  <h3>صلوات</h3>
+  <div class="salavat-buttons">
+    <button class="count-btn" onclick="increaseCount('salavat')">ثبت صلوات تکی</button>
+    <button class="count-btn" onclick="openPopup()">ثبت صلوات تعداد</button>
+  </div>
+  <div class="counter" id="salavat">تعداد صلوات: ۰</div>
+</div>
+
+<!-- پاپ‌آپ -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h4>تعداد صلوات</h4>
+    <p>تعداد صلوات را وارد کنید:</p>
+    <input type="number" id="salavatCountInput" placeholder="مثلاً 100">
+    <div class="popup-buttons">
+      <button class="btn-green" onclick="submitSalavatCount()">ثبت صلوات</button>
+      <button class="btn-gray" onclick="closePopup()">بستن منو</button>
+    </div>
+  </div>
+</div>
 
 
 <footer>روحش شاد و یادش گرامی 🌹</footer>
@@ -373,6 +371,7 @@
 
 </body>
 </html>
+
 
 
 
