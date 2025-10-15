@@ -333,46 +333,78 @@
     showImage(index);
   }
 
-  // شمارنده
-  const counts = JSON.parse(localStorage.getItem("counts")) || {
+  // -------------------------
+  // شمارنده با Google Sheet
+  // -------------------------
+  const API_URL = "https://script.google.com/macros/s/AKfycbyX_WkWWzYpfkbBbshKbtERx1w--gZyWPXG2qOKvI_V_S4NG1RdPb8xDbbMrkdnxMPR/exec";
+  const TOKEN = "MY_SECRET_TOKEN_123456";
+
+  const counts = {
     fatehe: 0, ayat: 0, yasin: 0, vaqea: 0, rahman: 0, molk: 0, qadr: 0, ashura: 0, salavat: 0
   };
+
+  // آپدیت نمایش روی صفحه
   function updateDisplay() {
     for (const key in counts) {
       const el = document.getElementById(key);
       if (el) el.innerText = key === 'salavat' ? `تعداد صلوات: ${counts[key]}` : `تعداد قرائت: ${counts[key]}`;
     }
   }
-  function increaseCount(key) {
-    counts[key]++;
-    localStorage.setItem("counts", JSON.stringify(counts));
-    updateDisplay();
-  }
-  function handlePlay(key, audioElement) {
-    audioElement.onended = () => {
-      increaseCount(key);
-    };
+
+  // دریافت شمارش‌ها از شیت
+  async function fetchCounts() {
+    try {
+      const res = await fetch(API_URL);
+      const j = await res.json();
+      if (j.ok && j.data) {
+        for (const k in j.data) {
+          counts[k] = j.data[k];
+        }
+        updateDisplay();
+      }
+    } catch(err) { console.error("Fetch counts error:", err); }
   }
 
+  // افزایش شمارنده و ارسال به شیت
+  async function increaseCount(key, by = 1) {
+    counts[key] = (counts[key] || 0) + by;
+    updateDisplay();
+    try {
+      await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: key, value: by, token: TOKEN })
+      });
+    } catch(err) { console.error("Post count error:", err); }
+  }
+
+  // هنگام پخش صوت
+  function handlePlay(key, audioElement) {
+    audioElement.onended = () => increaseCount(key);
+  }
+
+  // -------------------------
   // صلوات پاپ‌آپ
+  // -------------------------
   const popup = document.getElementById("popup");
   function openPopup() { popup.style.display = "flex"; }
   function closePopup() { popup.style.display = "none"; }
   function submitSalavatCount() {
     const val = parseInt(document.getElementById("salavatCountInput").value);
     if (!isNaN(val) && val > 0) {
-      counts.salavat += val;
-      localStorage.setItem("counts", JSON.stringify(counts));
-      updateDisplay();
+      increaseCount('salavat', val);
     }
     closePopup();
   }
 
-  updateDisplay();
+  // دریافت شمارش‌ها هنگام لود صفحه
+  fetchCounts();
 </script>
+
 
 </body>
 </html>
+
 
 
 
