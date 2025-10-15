@@ -5,33 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>یادبود مرحوم سرهنگ محمد صداقت کیش</title>
 <style>
-body { font-family: "Vazir", sans-serif; background-color:#f3f2ef; margin:0; padding:0; text-align:center; direction:rtl; }
-header { background-color:#2f3640; color:white; padding:20px; font-size:22px; }
-.gallery { position:relative; max-width:500px; margin:16px auto; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08);}
-.gallery img { width:100%; height:400px; object-fit:cover; display:none; }
-.gallery img.active { display:block; }
-.gallery .nav { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; background:rgba(0,0,0,0.35); color:#fff; font-size:20px; }
-.gallery .prev { right:10px; }
-.gallery .next { left:10px; }
-button { background-color:#353b48; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:14px; }
-button:hover { background-color:#718093; }
-.audio-section, .salavat-section, .bio-section { background:white; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); padding:20px; margin:25px auto; width:90%; max-width:500px; text-align:right; }
-.bio-section { text-align:justify; line-height:1.8; font-size:15px; max-width:600px; }
-.bio-section h2 { text-align:center; color:#2f3640; }
-.counter { font-size:14px; color:#555; margin-top:8px; }
-.count-btn { margin-top:10px; background-color:#27ae60; }
-.count-btn:hover { background-color:#2ecc71; }
-.salavat-buttons { display:flex; justify-content:center; gap:10px; }
-.salavat-buttons button { flex:1; padding:8px 0; }
-.popup { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-.popup-content { background:white; padding:20px; border-radius:10px; text-align:center; width:280px; }
-.popup-content h4 { margin-top:0; }
-.popup-content input { width:100%; padding:8px; margin:10px 0; text-align:center; }
-.popup-buttons { display:flex; justify-content:space-between; margin-top:10px; }
-.popup-buttons button { width:48%; padding:8px 0; }
-.btn-green { background-color:#27ae60; }
-.btn-gray { background-color:#7f8c8d; }
-footer { background:#2f3640; color:white; padding:15px; font-size:14px; margin-top:40px; }
+body { font-family: "Vazir", sans-serif; background:#f3f2ef; margin:0; padding:0; text-align:center; }
+header{background:#2f3640;color:white;padding:20px;font-size:22px;}
+.gallery{position:relative;max-width:500px;margin:16px auto;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+.gallery img{width:100%;height:400px;object-fit:cover;display:none;}
+.gallery img.active{display:block;}
+.gallery .nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;background:rgba(0,0,0,0.35);color:#fff;font-size:20px;}
+.gallery .prev { right:10px; } .gallery .next { left:10px; }
+button{background:#353b48;color:white;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:14px;}
+button:hover{background:#718093;}
+.audio-section{background:white;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);padding:20px;margin:25px auto;width:90%;max-width:500px;text-align:right;}
+.audio-section h3{margin-top:0;color:#2f3640;}
+audio{width:100%;margin-top:10px;}
+.counter{font-size:14px;color:#555;margin-top:8px;}
+.count-btn{margin-top:10px;background-color:#27ae60;}
+.count-btn:hover{background-color:#2ecc71;}
+.salavat-section{background:white;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);padding:20px;margin:25px auto;width:90%;max-width:500px;text-align:center;}
+.salavat-buttons{display:flex;justify-content:center;gap:10px;}
+.salavat-buttons button{flex:1;padding:8px 0;}
+.popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
+.popup-content{background:white;padding:20px;border-radius:10px;text-align:center;width:280px;}
+.popup-content h4{margin-top:0;}
+.popup-content input{width:100%;padding:8px;margin:10px 0;text-align:center;}
+.popup-buttons{display:flex;justify-content:space-between;margin-top:10px;}
+.popup-buttons button{width:48%;padding:8px 0;}
+.btn-green{background:#27ae60;} .btn-gray{background:#7f8c8d;}
+.bio-section{background:white;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);padding:20px;margin:25px auto;width:90%;max-width:600px;text-align:justify;line-height:1.8;font-size:15px;}
+.bio-section h2{text-align:center;color:#2f3640;}
+footer{background:#2f3640;color:white;padding:15px;font-size:14px;margin-top:40px;}
 </style>
 </head>
 <body>
@@ -48,56 +49,85 @@ footer { background:#2f3640; color:white; padding:15px; font-size:14px; margin-t
 </div>
 
 <div class="bio-section">
-  <h2>زندگی‌نامه مرحوم سرهنگ محمد صداقت کیش</h2>
-  <p>مرحوم سرهنگ محمد صداقت کیش در سال ... در شهر ... دیده به جهان گشود. ایشان دوران خدمت خود را با تعهد و فداکاری سپری کردند. روحش شاد و یادش گرامی باد 🌹</p>
+<h2>زندگی‌نامه مرحوم سرهنگ محمد صداقت کیش</h2>
+<p>مرحوم سرهنگ محمد صداقت کیش در سال ... در شهر ... دیده به جهان گشود. ایشان دوران خدمت خود را با تعهد و فداکاری سپری کردند. روحش شاد و یادش گرامی باد 🌹</p>
 </div>
 
 <div class="salavat-section">
-  <h3>صلوات</h3>
-  <div class="salavat-buttons">
-    <button class="count-btn" onclick="increaseCount('salavat')">ثبت صلوات تکی</button>
-    <button class="count-btn" onclick="openPopup()">ثبت صلوات تعداد</button>
-  </div>
-  <div class="counter" id="salavat">تعداد صلوات: ۰</div>
+<h3>صلوات</h3>
+<div class="salavat-buttons">
+<button onclick="increaseCount('salavat')">ثبت صلوات تکی</button>
+<button onclick="openPopup()">ثبت صلوات تعداد</button>
+</div>
+<div class="counter" id="salavat">تعداد صلوات: ۰</div>
 </div>
 
 <div class="popup" id="popup">
-  <div class="popup-content">
-    <h4>تعداد صلوات</h4>
-    <p>تعداد صلوات را وارد کنید:</p>
-    <input type="number" id="salavatCountInput" placeholder="مثلاً 100">
-    <div class="popup-buttons">
-      <button class="btn-green" onclick="submitSalavatCount()">ثبت صلوات</button>
-      <button class="btn-gray" onclick="closePopup()">بستن منو</button>
-    </div>
-  </div>
+<div class="popup-content">
+<h4>تعداد صلوات</h4>
+<input type="number" id="salavatCountInput" placeholder="مثلاً 100">
+<div class="popup-buttons">
+<button class="btn-green" onclick="submitSalavatCount()">ثبت صلوات</button>
+<button class="btn-gray" onclick="closePopup()">بستن منو</button>
+</div>
+</div>
+</div>
+
+<!-- تمام بخش‌های صوتی -->
+<div class="audio-section">
+<h3>سوره فاتحه</h3>
+<audio controls onplay="handlePlay('fatehe', this)"><source src="audio/fatehe.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('fatehe')">ثبت سوره فاتحه</button>
+<div class="counter" id="fatehe">تعداد قرائت: ۰</div>
 </div>
 
 <div class="audio-section">
-  <h3>سوره فاتحه</h3>
-  <audio controls onplay="handlePlay('fatehe', this)">
-    <source src="audio/fatehe.mp3" type="audio/mpeg">
-  </audio>
-  <button class="count-btn" onclick="increaseCount('fatehe')">ثبت سوره فاتحه</button>
-  <div class="counter" id="fatehe">تعداد قرائت: ۰</div>
+<h3>آیت الکرسی</h3>
+<audio controls onplay="handlePlay('ayat', this)"><source src="audio/ayat.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('ayat')">ثبت آیت الکرسی</button>
+<div class="counter" id="ayat">تعداد قرائت: ۰</div>
 </div>
 
 <div class="audio-section">
-  <h3>آیت الکرسی</h3>
-  <audio controls onplay="handlePlay('ayat', this)">
-    <source src="audio/ayat.mp3" type="audio/mpeg">
-  </audio>
-  <button class="count-btn" onclick="increaseCount('ayat')">ثبت آیت الکرسی</button>
-  <div class="counter" id="ayat">تعداد قرائت: ۰</div>
+<h3>سوره یس</h3>
+<audio controls onplay="handlePlay('yasin', this)"><source src="audio/yasin.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('yasin')">ثبت سوره یس</button>
+<div class="counter" id="yasin">تعداد قرائت: ۰</div>
 </div>
 
 <div class="audio-section">
-  <h3>سوره یس</h3>
-  <audio controls onplay="handlePlay('yasin', this)">
-    <source src="audio/yasin.mp3" type="audio/mpeg">
-  </audio>
-  <button class="count-btn" onclick="increaseCount('yasin')">ثبت سوره یس</button>
-  <div class="counter" id="yasin">تعداد قرائت: ۰</div>
+<h3>سوره واقعه</h3>
+<audio controls onplay="handlePlay('vaqea', this)"><source src="audio/vaqea.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('vaqea')">ثبت سوره واقعه</button>
+<div class="counter" id="vaqea">تعداد قرائت: ۰</div>
+</div>
+
+<div class="audio-section">
+<h3>سوره الرحمن</h3>
+<audio controls onplay="handlePlay('rahman', this)"><source src="audio/rahman.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('rahman')">ثبت سوره الرحمن</button>
+<div class="counter" id="rahman">تعداد قرائت: ۰</div>
+</div>
+
+<div class="audio-section">
+<h3>سوره ملک</h3>
+<audio controls onplay="handlePlay('molk', this)"><source src="audio/molk.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('molk')">ثبت سوره ملک</button>
+<div class="counter" id="molk">تعداد قرائت: ۰</div>
+</div>
+
+<div class="audio-section">
+<h3>سوره قدر</h3>
+<audio controls onplay="handlePlay('qadr', this)"><source src="audio/qadr.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('qadr')">ثبت سوره قدر</button>
+<div class="counter" id="qadr">تعداد قرائت: ۰</div>
+</div>
+
+<div class="audio-section">
+<h3>زیارت عاشورا</h3>
+<audio controls onplay="handlePlay('ashura', this)"><source src="audio/ashura.mp3" type="audio/mpeg"></audio>
+<button onclick="increaseCount('ashura')">ثبت زیارت عاشورا</button>
+<div class="counter" id="ashura">تعداد قرائت: ۰</div>
 </div>
 
 <footer>روحش شاد و یادش گرامی 🌹</footer>
@@ -105,61 +135,55 @@ footer { background:#2f3640; color:white; padding:15px; font-size:14px; margin-t
 <script>
 let index=0;
 const images=document.querySelectorAll(".gallery img");
-function showImage(i){images.forEach(img=>img.classList.remove("active")); images[i].classList.add("active");}
-function nextImage(){index=(index+1)%images.length; showImage(index);}
-function prevImage(){index=(index-1+images.length)%images.length; showImage(index);}
+function showImage(i){images.forEach(img=>img.classList.remove("active"));images[i].classList.add("active");}
+function nextImage(){index=(index+1)%images.length;showImage(index);}
+function prevImage(){index=(index-1+images.length)%images.length;showImage(index);}
 
-const API_URL="https://script.google.com/macros/s/AKfycbzIXib38XLD2iUXxPS0CsRYla9cVju0jw8XyYI6dFvvYJ2pwy-xTgwRe1izdtKAzjjF/exec";
-const TOKEN="MY_SECRET_TOKEN_123456";
+const API_URL = "https://script.google.com/macros/s/AKfycbyX_WkWWzYpfkbBbshKbtERx1w--gZyWPXG2qOKvI_V_S4NG1RdPb8xDbbMrkdnxMPR/exec";
+const TOKEN = "MY_SECRET_TOKEN_123456";
 
-const counts={ fatehe:0, ayat:0, yasin:0, vaqea:0, rahman:0, molk:0, qadr:0, ashura:0, salavat:0 };
+const counts = { fatehe:0, ayat:0, yasin:0, vaqea:0, rahman:0, molk:0, qadr:0, ashura:0, salavat:0 };
 
-function updateDisplay(){ 
-  for(const k in counts){ 
-    const el=document.getElementById(k); 
-    if(el) el.innerText=k==='salavat'?`تعداد صلوات: ${counts[k]}`:`تعداد قرائت: ${counts[k]}`;
+function updateDisplay(){
+  for(const key in counts){
+    const el=document.getElementById(key);
+    if(el) el.innerText = key==='salavat'?`تعداد صلوات: ${counts[key]}`:`تعداد قرائت: ${counts[key]}`;
   }
 }
 
 async function fetchCounts(){
   try{
-    const res=await fetch(API_URL);
-    const j=await res.json();
-    if(j.ok && j.data){ 
-      for(const k in j.data) counts[k]=j.data[k]; 
-      updateDisplay(); 
+    const res = await fetch(API_URL);
+    const j = await res.json();
+    if(j.ok && j.data){
+      for(const k in j.data) counts[k] = j.data[k];
+      updateDisplay();
+      localStorage.setItem("counts",JSON.stringify(counts));
     }
   }catch(err){console.error(err);}
 }
 
-async function increaseRemote(key,by=1){
+async function increaseCount(key, by=1){
+  counts[key] = (counts[key] || 0) + by;
+  updateDisplay();
+  localStorage.setItem("counts",JSON.stringify(counts));
   try{
     await fetch(API_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'increment', key:key, value:by, token:TOKEN})
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ key:key, value:by, token:TOKEN })
     });
   }catch(err){console.error(err);}
 }
 
-async function increaseCount(key){
-  counts[key]++;
-  updateDisplay();
-  await increaseRemote(key);
-}
-
-function handlePlay(key,audioElement){ audioElement.onended=()=>increaseCount(key); }
+function handlePlay(key,audio){ audio.onended=()=>increaseCount(key); }
 
 const popup=document.getElementById("popup");
 function openPopup(){popup.style.display="flex";}
 function closePopup(){popup.style.display="none";}
 function submitSalavatCount(){
-  const val=parseInt(document.getElementById("salavatCountInput").value);
-  if(!isNaN(val) && val>0){
-    counts.salavat+=val;
-    updateDisplay();
-    increaseRemote('salavat',val);
-  }
+  const val = parseInt(document.getElementById("salavatCountInput").value);
+  if(!isNaN(val) && val>0){ increaseCount('salavat', val); }
   closePopup();
 }
 
