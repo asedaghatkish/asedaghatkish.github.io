@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.75">
   <title>یادبود مرحوم سرهنگ محمد صداقت کیش</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
   <style>
@@ -204,6 +204,16 @@
       font-size: 14px;
       margin-top: 40px;
     }
+
+    /* وقتی پاپ‌آپ بازه، پلیرهای صوتی مخفی می‌شن تا روی پاپ‌آپ نیان */
+    body.modal-open audio {
+      visibility: hidden;
+    }
+    /* پاپ‌آپ باید بالاتر از همه لایه‌ها باشه */
+    .popup {
+      z-index: 9999;
+    }
+    
   </style>
 </head>
 <body>
@@ -421,8 +431,12 @@
 
   // صلوات پاپ‌آپ
   const popup = document.getElementById("popup");
-  function openPopup() { popup.style.display = "flex"; }
-  function closePopup() { popup.style.display = "none"; }
+  function openPopup() { popup.style.display = "flex";
+                       document.body.classList.add("modal-open"); // مخفی کردن پلیرها
+                       }
+  function closePopup() { popup.style.display = "none";
+                        document.body.classList.remove("modal-open"); // برگردوندن پلیرها
+                        }
   //function submitSalavatCount() {
   //  const val = parseInt(document.getElementById("salavatCountInput").value);
   //  if (!isNaN(val) && val > 0) {
@@ -437,18 +451,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
