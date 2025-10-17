@@ -497,38 +497,6 @@ function handleFirstInteraction() {
 // اجرای اولیه
 tryAutoplayBgVoice();
 
-  
-</script>
-
-<!-- پخش صدای پس‌زمینه -->
-<audio id="bgVoice" src="audio/marhoom.mp3" preload="auto" muted></audio>
-
-<script>
-  const bgVoice = document.getElementById("bgVoice");
-
-  bgVoice.play().then(() => {
-    console.log("Background audio started automatically.");
-  }).catch(() => {
-    console.log("Autoplay blocked by browser. Waiting for user interaction...");
-    const enableAudio = () => {
-      bgVoice.muted = false;
-      bgVoice.play();
-      document.removeEventListener("click", enableAudio);
-      document.removeEventListener("touchstart", enableAudio);
-      console.log("User interaction detected. Audio playing now!");
-    };
-    document.addEventListener("click", enableAudio);
-    document.addEventListener("touchstart", enableAudio);
-  });
-</script>
-
-  
+</script>  
 </body>
 </html>
-
-
-
-
-
-
-
