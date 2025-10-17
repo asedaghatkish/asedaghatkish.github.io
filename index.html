@@ -220,6 +220,18 @@
 
 <header>یادبود مرحوم سرهنگ محمد صداقت کیش</header>
 
+<!-- background voice -->
+<audio id="bgVoice" preload="auto" src="audio/marhoom.mp3"></audio>
+
+<!-- replay button (hidden until the voice ends) -->
+<div id="replayContainer" style="display:none; text-align:center; margin-top:20px;">
+  <button id="replayBtn" 
+          style="background:#27ae60; color:white; border:none; padding:10px 20px; border-radius:10px; font-size:16px; cursor:pointer;">
+    🔁 پخش دوباره صدا
+  </button>
+</div>
+
+  
 <!-- گالری -->
 <div class="gallery">
   <img src="images/photo1.jpg" class="active" alt="عکس ۱">
@@ -447,10 +459,50 @@
   //}
 
   updateDisplay();
+
+  /* ========== Background voice autoplay + replay ========== */
+const bgVoice = document.getElementById('bgVoice');
+const replayContainer = document.getElementById('replayContainer');
+const replayBtn = document.getElementById('replayBtn');
+
+// سعی کن صدا رو هنگام لود پخش کنی
+async function tryAutoplayBgVoice() {
+  try {
+    await bgVoice.play();
+    console.log('Background voice started playing.');
+  } catch (err) {
+    console.log('Autoplay blocked by browser. Waiting for user interaction...');
+    // اگر بلاک شد، وقتی کاربر کلیک یا لمس کنه پخش رو شروع کن
+    document.body.addEventListener('click', handleFirstInteraction, { once: true });
+  }
+}
+
+// وقتی وویس تموم شد، دکمه‌ی replay رو نشون بده
+bgVoice.addEventListener('ended', () => {
+  replayContainer.style.display = 'block';
+});
+
+// وقتی دکمه‌ی replay کلیک شد، دوباره پخش کن
+replayBtn.addEventListener('click', () => {
+  bgVoice.currentTime = 0;
+  bgVoice.play();
+  replayContainer.style.display = 'none';
+});
+
+// اولین تعامل کاربر => شروع پخش اگر autoplay بلاک شده بود
+function handleFirstInteraction() {
+  bgVoice.play();
+}
+
+// اجرای اولیه
+tryAutoplayBgVoice();
+
+  
 </script>
 
 </body>
 </html>
+
 
 
 
