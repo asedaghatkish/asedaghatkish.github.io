@@ -460,11 +460,28 @@
 
   updateDisplay();
 
-  /* ========== Background voice autoplay + replay button (always visible after stop) ========== */
+  /* ========== Background voice autoplay + replay button (instant replay fix) ========== */
 const bgVoice = document.getElementById('bgVoice');
 const replayContainer = document.getElementById('replayContainer');
 const replayBtn = document.getElementById('replayBtn');
 const allAudios = document.querySelectorAll('.audio-section audio'); // تمام وویس‌های سوره‌ها
+
+// استایل مخفی کردن دکمه به جای display:none
+replayContainer.style.opacity = '0';
+replayContainer.style.pointerEvents = 'none';
+replayContainer.style.transition = 'opacity 0.3s ease';
+
+// تابع نمایش دکمه
+function showReplayButton() {
+  replayContainer.style.opacity = '1';
+  replayContainer.style.pointerEvents = 'auto';
+}
+
+// تابع پنهان کردن دکمه
+function hideReplayButton() {
+  replayContainer.style.opacity = '0';
+  replayContainer.style.pointerEvents = 'none';
+}
 
 // تلاش برای پخش خودکار صدای مرحوم
 async function tryAutoplayBgVoice() {
@@ -477,20 +494,24 @@ async function tryAutoplayBgVoice() {
   }
 }
 
-// وقتی صدای مرحوم تموم بشه → دکمه پخش دوباره ظاهر بشه
-bgVoice.addEventListener('ended', () => {
-  replayContainer.style.display = 'block';
-});
+// وقتی صدای مرحوم تموم بشه یا قطع بشه → دکمه پخش دوباره ظاهر بشه
+bgVoice.addEventListener('ended', showReplayButton);
+bgVoice.addEventListener('pause', showReplayButton);
 
-// وقتی دکمه‌ی پخش دوباره کلیک بشه → صدای مرحوم از اول پخش بشه و دکمه پنهان شه
-replayBtn.addEventListener('click', () => {
+// وقتی دکمه پخش دوباره کلیک بشه → صدای مرحوم از اول پخش بشه و دکمه پنهان شه
+replayBtn.addEventListener('click', async () => {
   stopAllSurahVoices(); // همه وویس‌ها قطع بشن
-  bgVoice.currentTime = 0;
-  bgVoice.play();
-  replayContainer.style.display = 'none';
+  try {
+    bgVoice.currentTime = 0;
+    await bgVoice.play(); // پخش فوری
+    hideReplayButton();
+    console.log('Background voice replayed.');
+  } catch (err) {
+    console.log('Play failed:', err);
+  }
 });
 
-// وقتی کاربر برای اولین بار کلیک کرد → صدای مرحوم شروع بشه
+// اولین تعامل کاربر (در صورت بلاک autoplay)
 function handleFirstInteraction() {
   bgVoice.play();
 }
@@ -503,12 +524,12 @@ function stopAllSurahVoices() {
   });
 }
 
-// وقتی هر وویسی از سوره‌ها پلی بشه → صدای مرحوم قطع و دکمه پخش دوباره ظاهر شه
+// وقتی یکی از وویس‌های سوره پلی بشه → صدای مرحوم قطع بشه
 allAudios.forEach(audio => {
   audio.addEventListener('play', () => {
     bgVoice.pause();
     bgVoice.currentTime = 0;
-    replayContainer.style.display = 'block'; // دکمه همیشه ظاهر شه بعد از قطع
+    showReplayButton();
     allAudios.forEach(a => {
       if (a !== audio) {
         a.pause();
@@ -518,15 +539,11 @@ allAudios.forEach(audio => {
   });
 });
 
-// اگر صدای مرحوم به هر دلیلی قطع شد → دکمه پخش دوباره ظاهر بشه
-bgVoice.addEventListener('pause', () => {
-  replayContainer.style.display = 'block';
-});
-
 // شروع خودکار پخش (در حد مجاز مرورگر)
 tryAutoplayBgVoice();
 
 </script>  
 </body>
 </html>
+
 
