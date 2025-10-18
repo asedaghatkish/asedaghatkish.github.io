@@ -462,24 +462,22 @@
 
   updateDisplay();
 
-  /* ========== صدای مرحوم + دکمه ثابت پخش ========== */
+  /* ========== صدای مرحوم + پخش خودکار و دکمه ثابت ========== */
 const bgVoice = document.getElementById('bgVoice');
 const playVoiceBtn = document.getElementById('playVoiceBtn');
 const allAudios = document.querySelectorAll('.audio-section audio');
 
-// تابع پخش صدای مرحوم
-playVoiceBtn.addEventListener('click', async () => {
-  stopAllSurahVoices();
+// سعی کن هنگام لود شدن صدا رو پخش کنی
+window.addEventListener("load", async () => {
   try {
-    bgVoice.currentTime = 0;
     await bgVoice.play();
-    console.log("Background voice playing...");
+    console.log("✅ صدای مرحوم به صورت خودکار پخش شد");
   } catch (err) {
-    console.log("Play blocked:", err);
+    console.log("⛔ مرورگر اجازه autoplay نداد، منتظر کلیک کاربر...");
   }
 });
 
-// وقتی یکی از سوره‌ها پلی بشه → صدای مرحوم قطع شه
+// وقتی یکی از سوره‌ها پخش شد → صدای مرحوم قطع شه
 allAudios.forEach(audio => {
   audio.addEventListener('play', () => {
     bgVoice.pause();
@@ -487,7 +485,19 @@ allAudios.forEach(audio => {
   });
 });
 
-// تابع قطع همه وویس‌های سوره‌ها
+// وقتی دکمه “پخش صدا” زده شد → صدا دوباره پخش شه
+playVoiceBtn.addEventListener('click', async () => {
+  stopAllSurahVoices();
+  try {
+    bgVoice.currentTime = 0;
+    await bgVoice.play();
+    console.log("🎵 صدای مرحوم پخش شد");
+  } catch (err) {
+    console.log("⚠️ خطا در پخش:", err);
+  }
+});
+
+// تابع کمکی برای قطع همه‌ی صداهای سوره‌ها
 function stopAllSurahVoices() {
   allAudios.forEach(a => {
     a.pause();
@@ -496,9 +506,11 @@ function stopAllSurahVoices() {
 }
 
 
+
 </script>  
 </body>
 </html>
+
 
 
 
