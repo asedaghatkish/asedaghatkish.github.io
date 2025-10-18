@@ -474,25 +474,26 @@ function stopAllSurahVoices() {
   });
 }
 
-// 1) تلاش برای autoplay هنگام load
+// 1) تلاش برای autoplay هنگام load (فقط یک‌بار بعد از تعامل کاربر)
+async function tryPlayAudio() {
+  try {
+    await bgVoice.play();
+    console.log("Autoplay succeeded after user interaction.");
+    document.removeEventListener('click', tryPlayAudio);
+    document.removeEventListener('touchstart', tryPlayAudio);
+  } catch (err) {
+    console.log("Autoplay blocked:", err);
+  }
+}
+
 window.addEventListener('load', async () => {
   try {
     await bgVoice.play();
-    console.log('Background voice autoplayed.');
+    console.log("Background voice autoplayed.");
   } catch (err) {
-    console.log('Autoplay blocked — waiting for user interaction.');
-    // fallback: با اولین کلیک روی صفحه، صدا رو پخش کن (once)
-    document.body.addEventListener('click', function bodyClickOnce() {
-      document.body.removeEventListener('click', bodyClickOnce);
-      try { bgVoice.play(); console.log('Background voice started after user click.'); }
-      catch(e){ console.log('Play still failed:', e); }
-    }, { once: true });
-    // همچنین با touchstart (روی موبایل) اگر لازم بود
-    document.body.addEventListener('touchstart', function bodyTouchOnce() {
-      document.body.removeEventListener('touchstart', bodyTouchOnce);
-      try { bgVoice.play(); console.log('Background voice started after touch.'); }
-      catch(e){ console.log('Play still failed:', e); }
-    }, { once: true });
+    console.log("Autoplay blocked by browser. Waiting for user interaction...");
+    document.addEventListener('click', tryPlayAudio);
+    document.addEventListener('touchstart', tryPlayAudio);
   }
 });
 
@@ -526,14 +527,12 @@ allSurahAudios.forEach(audio => {
   });
 });
 
-// 4) وقتی bgVoice تمام شد یا paused شد، دکمه‌ی پخش همیشه هست (ما چیزی مخفی نمیکنیم).
-// (اگر خواستی وقتی bgVoice تمام شد دکمه ظاهر/مخفی بشه، می‌تونیم اضافه کنیم)
-
 
 
 </script>  
 </body>
 </html>
+
 
 
 
